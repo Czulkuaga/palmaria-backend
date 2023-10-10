@@ -5,8 +5,12 @@ const morgan = require('morgan')
 const PORT = process.env.PORT || 4000
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const {connectToDatabase} = require("./models/");
 
 const ApiRoute = require('./routes/api');
+
+//connect to database
+connectToDatabase().then(r => console.log("Database has been connected successfully"))
 
 // Global middlewares
 app.use(morgan('dev'));
