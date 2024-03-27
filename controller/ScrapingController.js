@@ -5,16 +5,17 @@ const InterlocutorService = require('../services/InterlocutorService')
 
 const verifyCaptchUrl = "https://www.google.com/recaptcha/api/siteverify"
 
+
 ScrapingController.obtainCbml = async (req, res) => {
   const url = req.body.url
   const params = req.body.data.matricula
   try {
     const verifyCaptcha = await axios.post(`${verifyCaptchUrl}?secret=${process.env.RE_CAPTCHA_GOOGLE}&response=${req.body.data.captcha}`)
     const resCaptcha = verifyCaptcha.data
-    console.log(resCaptcha)
+    // console.log(resCaptcha)
 
     if (resCaptcha.success === true) {
-      const response = await axios.get(`${url}${params}`); // Reemplaza con la URL del sitio web que deseas scrape
+      const response = await axios.post(`${url}${params}`); // Reemplaza con la URL del sitio web que deseas scrape
       const html = response.data;
       // console.log(html)
 
